@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        2.0
-Release:        6.10%{?dist}
+Release:        6.11%{?dist}
 Summary:        This plugin provides the capability to package the artifact in an uber-jar
 License:        ASL 2.0
 URL:            http://maven.apache.org/plugins/%{pkg_name}
@@ -14,19 +14,19 @@ BuildArch:      noarch
 BuildRequires:  %{?scl_prefix_java_common}maven-local
 BuildRequires:  %{?scl_prefix_java_common}mvn(asm:asm)
 BuildRequires:  %{?scl_prefix_java_common}mvn(asm:asm-commons)
-BuildRequires:  maven30-mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
-BuildRequires:  maven30-mvn(org.apache.maven.plugins:maven-plugins:pom:)
-BuildRequires:  maven30-mvn(org.apache.maven.shared:maven-dependency-tree)
-BuildRequires:  maven30-mvn(org.apache.maven:maven-artifact)
-BuildRequires:  maven30-mvn(org.apache.maven:maven-compat)
-BuildRequires:  maven30-mvn(org.apache.maven:maven-core)
-BuildRequires:  maven30-mvn(org.apache.maven:maven-model)
-BuildRequires:  maven30-mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  maven30-mvn(org.codehaus.plexus:plexus-component-annotations)
-BuildRequires:  maven30-mvn(org.codehaus.plexus:plexus-container-default)
-BuildRequires:  maven30-mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven.plugins:maven-plugins:pom:)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven.shared:maven-dependency-tree)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven:maven-artifact)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven:maven-compat)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven:maven-core)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven:maven-model)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven:maven-plugin-api)
+BuildRequires:  %{?scl_prefix}mvn(org.codehaus.plexus:plexus-component-annotations)
+BuildRequires:  %{?scl_prefix}mvn(org.codehaus.plexus:plexus-container-default)
+BuildRequires:  %{?scl_prefix}mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  %{?scl_prefix_java_common}mvn(org.jdom:jdom)
-BuildRequires:  maven30-mvn(org.vafer:jdependency)
+BuildRequires:  %{?scl_prefix}mvn(org.vafer:jdependency)
 
 
 %description
@@ -43,21 +43,21 @@ Summary:        API documentation for %{pkg_name}
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 rm src/test/jars/plexus-utils-1.4.1.jar
 ln -s $(build-classpath plexus/utils) src/test/jars/plexus-utils-1.4.1.jar
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 # A class from aopalliance is not found. Simply adding BR does not solve it
 %mvn_build -f
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -71,6 +71,9 @@ set -e -x
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 2.0-6.11
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 2.0-6.10
 - maven33 rebuild
 
