@@ -4,14 +4,14 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        2.0
-Release:        6.11%{?dist}
+Release:        6.12%{?dist}
 Summary:        This plugin provides the capability to package the artifact in an uber-jar
 License:        ASL 2.0
 URL:            http://maven.apache.org/plugins/%{pkg_name}
 Source0:        http://repo2.maven.org/maven2/org/apache/maven/plugins/%{pkg_name}/%{version}/%{pkg_name}-%{version}-source-release.zip
 BuildArch:      noarch
 
-BuildRequires:  %{?scl_prefix_java_common}maven-local
+BuildRequires:  %{?scl_prefix}maven-local
 BuildRequires:  %{?scl_prefix_java_common}mvn(asm:asm)
 BuildRequires:  %{?scl_prefix_java_common}mvn(asm:asm-commons)
 BuildRequires:  %{?scl_prefix}mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
@@ -71,6 +71,9 @@ set -e -x
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 2.0-6.12
+- Fix BR on maven-local & co.
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 2.0-6.11
 - maven33 rebuild #2
 
